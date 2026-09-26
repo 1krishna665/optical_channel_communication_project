@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="refresh" content="5">
+    <title>History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+<body class="history-page"></body>
+<div class="container">
+
+    <h1>Historical Results</h1>
+
+    <a href="/" class="history-card-btn">
+    ← Back To Dashboard
+    </a>
+
+    <h2>Reliability Trend</h2>
+
+    <div class="chart-container">
+    <canvas id="reliabilityChart"></canvas>
+</div>
+
+    <br><br>
+
+    <table class="history-table">
+
+        <tr>
+            <th>ID</th>
+            <th>Timestamp</th>
+            <th>Red</th>
+            <th>Green</th>
+            <th>Blue</th>
+            <th>Message</th>
+            <th>Success Rate</th>
+        </tr>
+
+        {% for row in records %}
+
+        <tr>
+
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+
+            <td>{{ row[5] }}</td>
+
+            <td>{{ row[8] }}%</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<script>
+
+const reliabilityData = {{ reliability_data | tojson | safe }};
+
+const labels = reliabilityData.map(
+    (_, index) => "Test " + (index + 1)
+);
+
+new Chart(
+    document.getElementById("reliabilityChart"),
+    {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [{
+                label: "Reliability (%)",
+                data: reliabilityData,
+                borderWidth: 3,
+                tension: 0.3
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                y: {
+                    min: 90,
+                    max: 100
+                }
+            }
+        }
+    }
+);
+
+</script>
+
+</body>
+
+</html>

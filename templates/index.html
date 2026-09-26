@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+
+    <title>Optical Covert Channel Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Optical Covert Channel Dashboard</h1>
+
+    <div class="btn-container">
+        <a href="/history" class="history-card-btn">
+            📈 Historical Analysis
+        </a>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h2>System Status</h2>
+            <p>Transmitter: {{data.transmitter_status}}</p>
+            <p>Receiver: {{data.receiver_status}}</p>
+            <p>Current Test: {{data.current_test}}</p>
+        </div>
+
+        <div class="card">
+            <h2>Current Message</h2>
+
+            <div class="message">
+                {{data.last_message}}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Sensor Values</h2>
+
+            <p>Red:
+                <span class="red">{{data.red}}</span>
+            </p>
+
+            <p>Green:
+                <span class="green">{{data.green}}</span>
+            </p>
+
+            <p>Blue:
+                <span class="blue">{{data.blue}}</span>
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Communication Statistics</h2>
+
+            <p>Signals Sent: {{data.signals_sent}}</p>
+            <p>Signals Received: {{data.signals_received}}</p>
+            <p>Success Rate: {{data.success_rate}}%</p>
+        </div>
+
+        <div class="card">
+            <h2>Environment</h2>
+
+            <p>Ambient Light: {{data.ambient_light}}</p>
+            <p>Detection Accuracy: {{data.accuracy}}%</p>
+            <p>Reliability Metric: {{data.reliability}}%</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
